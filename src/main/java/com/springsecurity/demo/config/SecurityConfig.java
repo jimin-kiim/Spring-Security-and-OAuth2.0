@@ -24,7 +24,11 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
 
                 // for other requests, permit all
-                .anyRequest().permitAll());
+                .anyRequest().permitAll())
+
+                // If clients attempt to access without proper authentication it moves them to the login page
+                .formLogin()
+                .loginPage("/login");
 
         return http.build();
     }
