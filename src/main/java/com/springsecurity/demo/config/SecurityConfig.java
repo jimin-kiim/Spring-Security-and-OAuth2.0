@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-// -> deprecated
 
 @Configuration
 @EnableWebSecurity
@@ -30,17 +28,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-    // DEPRECATED
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.csrf().disable();
-//        http.authorizeRequests()
-//                .antMatchers("/user/**").authenticated() //
-//                .antMatchers("/manager/**").access("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
-//                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-//                .anyRequest().permitAll();
-//
-//        return http.build();
-//    }
 }

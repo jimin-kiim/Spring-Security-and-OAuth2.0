@@ -30,6 +30,7 @@ public class IndexController {
     }
 
     // @GetMapping("/login") doesn't work as we intended bc Spring Security owns the url
+    // but after the file SecurityConfig is created, it works as we intended
     @GetMapping("/login")
     public @ResponseBody String login() {
         return "login";
