@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller // return view
 public class IndexController {
 
+    @Autowired // Spring automatically creates the object and performs Dependency Injection (DI)
+    private UserRepository userRepository;
     // localhost:8080/
     // localhost:8080
     @GetMapping({"","/"})
@@ -44,6 +46,8 @@ public class IndexController {
     @PostMapping("/join")
     public @ResponseBody String join(User user) {
         System.out.println(user);
+        user.setRole("ROLE_USER");
+        userRepository.save(user);
         return "join";
     }
 }
