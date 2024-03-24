@@ -36,9 +36,9 @@ public class IndexController {
         return "loginForm";
     }
 
-    @GetMapping("/join")
-    public @ResponseBody String join() {
-        return "join";
+    @GetMapping("/joinForm")
+    public String joinForm() {
+        return "joinForm";
     }
 
     @GetMapping("/joinProc")
