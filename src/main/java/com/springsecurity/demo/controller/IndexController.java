@@ -3,6 +3,8 @@ package com.springsecurity.demo.controller;
 import com.springsecurity.demo.model.User;
 import com.springsecurity.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,6 +71,12 @@ public class IndexController {
         return "personal information";
     }
 
+    // usually used when more than one restriction is imposed
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')") // right before data() method is executed
+    @GetMapping("/data")
+    public @ResponseBody String data() {
+        return "data";
+    }
 }
 
 /*

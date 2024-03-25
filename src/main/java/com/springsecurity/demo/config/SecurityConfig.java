@@ -10,7 +10,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true) // activating @Secured annotation
+@EnableGlobalMethodSecurity(
+        securedEnabled = true, // activating @Secured annotation
+        prePostEnabled = true) // activating @PreAuthorize & @PostAuthorize annotations
 public class SecurityConfig {
 
     @Bean // register the object to be returned to IoC
