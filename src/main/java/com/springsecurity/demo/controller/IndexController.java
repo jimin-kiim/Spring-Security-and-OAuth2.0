@@ -62,6 +62,13 @@ public class IndexController {
         userRepository.save(user);
         return "redirect:/loginForm"; // redirect: calls the function
     }
+
+    @Secured("ROLE_ADMIN") // when only one restriction is imposed
+    @GetMapping("/info")
+    public @ResponseBody String info() {
+        return "personal information";
+    }
+
 }
 
 /*
