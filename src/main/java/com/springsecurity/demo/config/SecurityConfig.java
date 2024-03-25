@@ -34,7 +34,10 @@ public class SecurityConfig {
 
                 // If clients attempt to access without proper authentication it moves them to the login page
                 .formLogin()
-                .loginPage("/loginForm");
+                .loginPage("/loginForm")
+                .loginProcessingUrl("/login") // when the url "/login" called, security catches it and login with its style
+                // -> so we don't need codes in controller for /login
+                .defaultSuccessUrl("/");
 
         return http.build();
     }
