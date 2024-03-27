@@ -20,10 +20,6 @@ public class SecurityConfig {
     @Autowired
     private PrincipalOAuth2UserService principalOAuth2UserService;
 
-    @Bean // register the object to be returned to IoC
-    public BCryptPasswordEncoder encodePwd() {
-        return new BCryptPasswordEncoder();
-    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable(); // red line occurs but can be ignored
