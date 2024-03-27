@@ -1,11 +1,16 @@
 package com.springsecurity.demo.controller;
 
+import com.springsecurity.demo.config.auth.PrincipalDetails;
 import com.springsecurity.demo.model.User;
 import com.springsecurity.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +24,29 @@ public class IndexController {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @GetMapping("/test/login")
+    public @ResponseBody String testLogin(Authentication authentication, // [1] DI
+                                          @AuthenticationPrincipal // [2] can access Session Information
+                                          PrincipalDetails userDetails) {
+        System.out.println("/test/login ===========================");
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal(); // [1] downcasting
+        System.out.println("authentication: " + principalDetails.getUser());
+
+        System.out.println("userDetails: " + userDetails.getUser()); // [2]
+        return "verifying session info";
+    }
+
+    @GetMapping("/test/oauth/login")
+    public @ResponseBody String testOauthLogin(Authentication authentication, // [1] DI
+                                        @AuthenticationPrincipal OAuth2User oAuth    // [2]
+    ) {
+        System.out.println("/test/oauth/login ===========================");
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal(); // [1] downcasting
+        System.out.println("authentication: " + oAuth2User.getAttributes()); // [2]
+        System.out.println("oauth2User: " + oAuth.getAttributes());
+        return "verifying OAuth session info";
+    }
 
     // localhost:8080/
     // localhost:8080
