@@ -15,13 +15,14 @@ import org.springframework.stereotype.Service;
 public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // executed after google oauth login is completed
     // handling userRequest from google oauth
+    // after exiting this function, @AuthenticationPrincipal annotation can be used
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         /*
