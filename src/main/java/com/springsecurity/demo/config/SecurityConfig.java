@@ -1,6 +1,6 @@
 package com.springsecurity.demo.config;
 
-import com.springsecurity.demo.config.oauth.PrincipalOauth2UserService;
+import com.springsecurity.demo.config.oauth.PrincipalOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Autowired
-    private PrincipalOauth2UserService principalOauth2UserService;
+    private PrincipalOAuth2UserService principalOAuth2UserService;
 
     @Bean // register the object to be returned to IoC
     public BCryptPasswordEncoder encodePwd() {
@@ -54,7 +54,7 @@ public class SecurityConfig {
                 .oauth2Login()
                     .loginPage("/loginForm")
                     .userInfoEndpoint()
-                    .userService(principalOauth2UserService);
+                    .userService(principalOAuth2UserService);
 
         return http.build();
     }
