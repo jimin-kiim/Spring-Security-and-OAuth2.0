@@ -8,6 +8,8 @@ server:
       force: true
 
 spring:
+  profiles:
+    include: secrets
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/security?serverTimezone=Asia/Seoul
@@ -20,3 +22,14 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${client-id}
+            client-secret: ${client-secret}
+            scope:
+            - email
+            - profile
