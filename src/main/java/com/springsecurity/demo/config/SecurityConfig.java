@@ -41,7 +41,10 @@ public class SecurityConfig {
                 .loginPage("/loginForm")
                 .loginProcessingUrl("/login") // when the url "/login" called, security catches it and login with its style
                 // -> so we don't need codes in controller for /login
-                .defaultSuccessUrl("/");
+                .defaultSuccessUrl("/")
+                .and()
+                .oauth2Login()
+                .loginPage("/loginForm");
 
         return http.build();
     }
