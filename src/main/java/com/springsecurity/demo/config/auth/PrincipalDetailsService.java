@@ -21,6 +21,7 @@ public class PrincipalDetailsService implements UserDetailsService {
     @Override
     // in the loginForm, the name of the input field should be "username"
     // if it isn't "username", in securityConfig, .usernameParameter("{modified parameter name}") should be added
+    // after exiting this function, @AuthenticationPrincipal annotation can be used
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User userEntity = userRepository.findByUsername(username);
         if (userEntity != null) {
