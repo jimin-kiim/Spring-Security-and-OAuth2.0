@@ -3,6 +3,7 @@ package com.springsecurity.demo.config.oauth;
 import com.springsecurity.demo.config.auth.PrincipalDetails;
 import com.springsecurity.demo.config.oauth.provider.FacebookUserInfo;
 import com.springsecurity.demo.config.oauth.provider.GoogleUserInfo;
+import com.springsecurity.demo.config.oauth.provider.NaverUserInfo;
 import com.springsecurity.demo.config.oauth.provider.OAuth2UserInfo;
 import com.springsecurity.demo.model.User;
 import com.springsecurity.demo.repository.UserRepository;
@@ -13,6 +14,8 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
@@ -43,8 +46,10 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
             oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
         } else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
             oAuth2UserInfo = new FacebookUserInfo(oAuth2User.getAttributes());
+        } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
+            oAuth2UserInfo = new NaverUserInfo((Map<String, Object>) oAuth2User.getAttributes().get("response"));
         } else {
-            System.out.println("We only support OAuth login for Google and Facebook");
+            System.out.println("We only support OAuth login for Google, Facebook and Naver");
         }
 
         String provider = oAuth2UserInfo.getProvider();
