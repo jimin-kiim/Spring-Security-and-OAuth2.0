@@ -18,7 +18,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update #create
+#      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -28,8 +29,14 @@ spring:
       client:
         registration:
           google:
-            client-id: ${client-id}
-            client-secret: ${client-secret}
+            client-id: ${google-client-id}
+            client-secret: ${google-client-secret}
             scope:
             - email
             - profile
+          facebook:
+            client-id: ${facebook-client-id}
+            client-secret: ${facebook-client-secret}
+            scope:
+              - email
+              - public_profile
