@@ -40,3 +40,12 @@ spring:
             scope:
               - email
               - public_profile
+          naver:
+            client-id: ${naver-client-id}
+            client-secret: ${naver-client-secret}
+            scope:
+              - name
+              - email
+            client-name: Naver
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/naver
