@@ -1,6 +1,9 @@
 package com.springsecurity.demo.config.oauth;
 
 import com.springsecurity.demo.config.auth.PrincipalDetails;
+import com.springsecurity.demo.config.oauth.provider.FacebookUserInfo;
+import com.springsecurity.demo.config.oauth.provider.GoogleUserInfo;
+import com.springsecurity.demo.config.oauth.provider.OAuth2UserInfo;
 import com.springsecurity.demo.model.User;
 import com.springsecurity.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +37,21 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
          */
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        System.out.println("getAttributes: " + oAuth2User.getAttributes());
+//        System.out.println("getAttributes: " + oAuth2User.getAttributes());
+        OAuth2UserInfo oAuth2UserInfo = null;
+        if (userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+            oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        } else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
+            oAuth2UserInfo = new FacebookUserInfo(oAuth2User.getAttributes());
+        } else {
+            System.out.println("We only support OAuth login for Google and Facebook");
+        }
 
-        String provider = userRequest.getClientRegistration().getRegistrationId();
-        String providerId = oAuth2User.getAttribute("sub");
+        String provider = oAuth2UserInfo.getProvider();
+        String providerId = oAuth2UserInfo.getProviderId();
         String username = provider + "_" + providerId;
         String password = bCryptPasswordEncoder.encode("password");
-        String email = oAuth2User.getAttribute("email");
+        String email = oAuth2UserInfo.getEmail();
         String role = "ROLE_USER";
 
         User userEntity = userRepository.findByUsername(username);
